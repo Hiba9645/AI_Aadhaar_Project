@@ -6,7 +6,7 @@ import numpy as np
 model = tf.keras.models.load_model("fraud_model.h5")
 
 
-img = cv2.imread("img_18.png")  
+img = cv2.imread("img_38.png")  
 img = cv2.resize(img, (96, 96))
 img = img / 255.0
 img = np.expand_dims(img, axis=0)
