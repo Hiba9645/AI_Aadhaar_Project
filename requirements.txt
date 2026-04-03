@@ -1,4 +1,5 @@
-tensorflow-cpu
 opencv-python-headless
 pytesseract
 numpy<2.0.0
+keras
+tensorflow-cpu>=2.12.0
