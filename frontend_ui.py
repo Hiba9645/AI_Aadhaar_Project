@@ -34,7 +34,7 @@ if uploaded_file is not None:
                     st.success("🏁 FINAL VERDICT: KYC APPROVED")
                 else:
                     st.error("🏁 FINAL VERDICT: KYC REJECTED")
-                    st.warning("Decision: Forgery detected or information unreadable.")
+                    
                     
             except Exception as e:
                 st.error("Error: Could not connect to the Backend. Please ensure Uvicorn is running.")

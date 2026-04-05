@@ -4,16 +4,17 @@ import numpy as np
 import tensorflow as tf
 import pytesseract
 import re
+import platform
 from PIL import Image
 
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 @st.cache_resource
 def load_my_model():
     return tf.keras.models.load_model("fraud_model.h5")
 
 MODEL = load_my_model()
-
-
 
 def milestone1_preprocess(img):
     """Resizes and sharpens the image"""
@@ -39,11 +40,9 @@ def run_ocr(img):
     match = re.search(r'(\d{4}[\s.]?\d{4}[\s.]?\d{4}|\d{12})', text)
     return bool(match)
 
-
-
 st.set_page_config(page_title="Aadhaar Fraud Shield", layout="centered")
 st.title("🛡️ Aadhaar Fraud Detection System")
-st.write("Milestone 4: Cloud Integration")
+
 st.markdown("---")
 
 uploaded_file = st.file_uploader("Upload Aadhaar Image", type=["jpg", "png", "jpeg"])
@@ -55,15 +54,12 @@ if uploaded_file is not None:
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             raw_img = cv2.imdecode(file_bytes, 1)
 
-            
             processed_img = milestone1_preprocess(raw_img)
             fraud_label, fraud_score = run_fraud_detection(processed_img)
             has_aadhaar_number = run_ocr(processed_img)
 
-            
             overall_status = "VERIFIED" if (fraud_label == "Original" and has_aadhaar_number) else "REJECTED"
 
-            
             st.markdown("---")
             if fraud_label == "Tampered":
                 st.error(f" AUTHENTICITY: {fraud_label}")
@@ -72,6 +68,6 @@ if uploaded_file is not None:
             
             if overall_status == "VERIFIED":
                 st.success("🏁 FINAL VERDICT: KYC APPROVED")
+                st.balloons()
             else:
                 st.error("🏁 FINAL VERDICT: KYC REJECTED")
-                st.warning("Reason: Tampering detected or Aadhaar number not found.")

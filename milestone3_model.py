@@ -46,4 +46,4 @@ model.fit(train_data, epochs=5, validation_data=test_data)
 
 model.save("fraud_model.h5")
 
-print("✅ Milestone 3 Training Completed!")
+print(" Milestone 3 Training Completed!")

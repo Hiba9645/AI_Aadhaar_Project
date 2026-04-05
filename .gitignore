@@ -1,2 +1,4 @@
 ocr_test.py
 dataset_final.zip
+__pycache__/
+*.pyc

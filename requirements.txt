@@ -1,5 +1,6 @@
+streamlit
+tensorflow-cpu==2.15.0
 opencv-python-headless
 pytesseract
 numpy<2.0.0
-keras
-tensorflow-cpu>=2.12.0
+Pillow
