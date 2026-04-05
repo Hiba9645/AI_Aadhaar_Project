@@ -12,7 +12,13 @@ if platform.system() == "Windows":
 
 @st.cache_resource
 def load_my_model():
-    return tf.keras.models.load_model("fraud_model.h5")
+    try:
+        
+        return tf.keras.models.load_model("fraud_model.h5", compile=False)
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
+
 
 MODEL = load_my_model()
 
